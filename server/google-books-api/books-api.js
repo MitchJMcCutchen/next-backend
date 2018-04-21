@@ -19,10 +19,11 @@ var searchBooks = (search, callback) => {
 }
 
 var getBook = (bookId, callback) => {
-  const returnFields = 'fields=id%2CvolumeInfo(authors%2Ccategories%2Cdescription%2CimageLinks%2CpageCount%2Ctitle)';
-  
+  const returnFields = 'id%2CvolumeInfo(authors%2Ccategories%2Cdescription%2CimageLinks%2CpageCount%2CpublishedDate%2Cpublisher%2CseriesInfo%2Csubtitle%2Ctitle)';
+
+
   request({
-    url: `https://www.googleapis.com/books/v1/volumes/${bookId}&fields=${returnFields}&key="${api_key}`,
+    url: `https://www.googleapis.com/books/v1/volumes/${bookId}?fields=${returnFields}&key=${api_key}`,
     json: true
   }, (error, response, body) => {
     if (error) {
