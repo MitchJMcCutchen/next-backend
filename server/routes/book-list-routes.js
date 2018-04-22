@@ -46,4 +46,31 @@ router.post('/add', authenticate, (req, res) => {
   });
 });
 
+router.delete('/remove/:id', authenticate, (req, res) => {
+  var book = req.params.id;
+
+  BookList.findOneAndUpdate({
+    userId: new ObjectID(req.user._id),
+    'bookList.bookId': book
+  }, {
+    $pull: {
+      bookList: {
+        bookId: {
+          $in: book
+        }
+      }
+    }
+  }, {
+    new: true
+  }).then((bookList) => {
+    if (bookList) {
+      return res.send(bookList);
+    }
+    res.status(400).send({message: 'The book was not in the user list'});
+  }).catch((err) => {
+    console.log(err);
+    res.status(400).send({message: 'Unable to find the user book list'});
+  });
+});
+
 module.exports = router;
