@@ -6,6 +6,7 @@ const {ObjectID} = require('mongodb');
 const {mongoose} = require('./db/mongoose');
 const users = require('./routes/user-routes');
 const googleBooks = require('./routes/google-book-routes');
+const bookLists = require('./routes/book-list-routes');
 
 const {searchBooks, getBook} = require('./google-books-api/books-api');
 
@@ -15,6 +16,7 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use('/users', users);
 app.use('/books', googleBooks);
+app.use('/booklist', bookLists);
 
 
 
