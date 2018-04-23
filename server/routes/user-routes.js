@@ -14,7 +14,6 @@ router.post('/', (req, res) => {
   var user = new User(body);
 
   user.save().then(() => {
-    user.createBookList();
     return user.generateAuthToken();
   }).then((token) => {
     res.header('x-auth', token).send(user);
