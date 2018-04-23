@@ -5,6 +5,14 @@ const {BookList} = require('./../models/book-list');
 const _ = require('lodash');
 const {ObjectID} = require('mongodb');
 
+router.get('/', authenticate, (req, res) => {
+  BookList.find({userId: new ObjectID(req.user._id)}).then((list) => {
+    res.send(list);
+  }).catch((err) => {
+    res.status(404).send();
+  });
+})
+
 router.post('/add', authenticate, (req, res) => {
   var book = _.pick(req.body, ['book']);
   var rating = _.pick(req.body, ['rating']);
