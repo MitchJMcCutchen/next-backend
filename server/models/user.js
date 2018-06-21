@@ -22,6 +22,19 @@ var UserSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
+  firstName: {
+    type: String,
+    minlength: 2
+  },
+  lastName: {
+    type: String,
+    minlength: 2
+  },
+  profilePic: {
+    type: String,
+    required: true,
+    default: 'https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/photo.jpg'
+  },
   tokens: [{
     access: {
       type: String,
@@ -38,7 +51,7 @@ UserSchema.methods.toJSON = function () {
   var user = this;
   var userObject = user.toObject();
 
-  return _.pick(userObject, ['_id', 'email']);
+  return _.pick(userObject, ['_id', 'email', 'firstName', 'lastName', 'profilePic']);
 };
 
 UserSchema.methods.createBookList = function() {
@@ -127,6 +140,7 @@ UserSchema.pre('save', function (next) {
     next();
   }
 });
+
 
 var User = mongoose.model('User', UserSchema);
 

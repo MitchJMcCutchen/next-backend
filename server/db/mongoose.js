@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/NextApp');
+mongoose.connect('mongodb://database/NextApp');
 
 module.exports = {mongoose}
