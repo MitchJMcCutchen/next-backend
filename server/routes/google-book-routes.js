@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {searchBooks, getBook} = require('./../google-books-api/books-api');
 
-router.get('/search/:search', (req, res) => {
-  searchBooks(req.params.search, (error, results) => {
+router.get('/search/:search/:startIndex?', (req, res) => {
+  searchBooks(req.params.search, req.params.startIndex, (error, results) => {
     if (error) {
       res.status(error.error.code).send(error);
     } else {
